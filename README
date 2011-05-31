@@ -1,0 +1,21 @@
+Required Python Modules:
+-----------------------------------------------------------
+- python-reportlab (>= 2.5)
+http://pypi.python.org/pypi/reportlab
+
+- python-qrencode (>= 1.0)
+http://pypi.python.org/pypi/qrencode
+
+- python-gnupg (>= 0.2.7)
+http://pypi.python.org/pypi/python-gnupg
+
+- gnupg executable
+
+
+Debian testing:
+-----------------------------------------------------------
+aptitude install python-reportlab python-qrencode gnupg
+
+Install python-gnupg:
+1. Download newest tar.gz from http://code.google.com/p/python-gnupg/downloads/list
+2. Install package following supplied README
