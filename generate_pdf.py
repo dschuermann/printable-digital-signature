@@ -6,6 +6,8 @@ TODO:
     - first line missing in sign, see workaround
     - strip tags like <b>
     - restructure code
+    - later do signing with clearsign=False -> smaller qr code
+    - strip -----END PGP SIGNATURE----- etc?
     
 @author: Dominik Schürmann
 """
