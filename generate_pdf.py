@@ -40,8 +40,7 @@ def myFirstPage(canvas, doc):
     canvas.drawCentredString(PAGE_WIDTH/2.0, PAGE_HEIGHT-108, title)
     canvas.setFont('Times-Roman', 9)
     canvas.drawString(inch, 0.75 * inch, "Page %d - %s" % (doc.page, title))
-
-
+    
     frame_width = PAGE_WIDTH-200
     hr = HRFlowable()
     space = Spacer(frame_width, 20)
@@ -86,10 +85,10 @@ def gpg_sign(message):
     homedir = os.path.expanduser('~')
     gpgdir = os.path.join(homedir, '.gnupg') # linux specific?
     if not os.path.exists(gpgdir) or not os.path.isdir(gpgdir):
-        print "GPG directory does not exist or is not a directory: %s" % gpgdir
+        print("GPG directory does not exist or is not a directory: %s" % gpgdir)
     else:
         gpg = gnupg.GPG(gnupghome=gpgdir, gpgbinary='gpg', verbose=verbose, use_agent=use_agent)
-        print "Successfully set of GPG directory: %s" % gpgdir
+        print("Successfully set of GPG directory: %s" % gpgdir)
     
     private_keys = gpg.list_keys(True) # private keys
     
@@ -103,8 +102,6 @@ def gpg_sign(message):
     # remove newlines, only the actual content should be signed!
     message_stripped = message.replace(os.linesep, "")
     message_stripped = "\n" + message_stripped # workaround
-    
-    
     
     signed_message = gpg.sign(message_stripped, keyid=keyid, passphrase=passphrase, clearsign=clearsign)
     return str(signed_message)
