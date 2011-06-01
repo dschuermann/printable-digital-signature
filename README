@@ -14,6 +14,17 @@ Similar ideas (not open source):
 -----------------------------------------------------------
 http://www.secrypt.de/produkte/digiseal-2d-barcode/
 
+ToDo
+-----------------------------------------------------------
+- first line missing in sign, see workaround
+- strip tags like <b>
+- restructure code
+- smaller qr code:
+  - later do signing with clearsign=False
+  - strip -----END PGP SIGNATURE----- etc?
+- build signature based on other things:
+  - sign final grade certificates using an algorithm to make statements
+    based on grades and sign these
 
 
 Required Python Modules:
