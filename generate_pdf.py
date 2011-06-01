@@ -26,13 +26,14 @@ PAGE_HEIGHT=defaultPageSize[1]; PAGE_WIDTH=defaultPageSize[0]
 styles = getSampleStyleSheet()
 
 # gpg config
+clearsign = True # contain message readable in signature -> bigger qr code
 verbose = False
 use_agent = True # if not using gpg agent define passphrase below
 passphrase = ""
 keyid = None # define keyid, run program to see valid key ids, None means using default
 
 # document
-title = "QR Code Signed Document"
+title = "QR code signed document"
 
 with file('message.txt', 'r') as f:
     message = f.read()
@@ -50,7 +51,7 @@ def myFirstPage(canvas, doc):
     hr = HRFlowable()
     space = Spacer(frame_width, 20)
     style = styles["Normal"]
-    qr_info = """<para rightIndent=10 leftIndent=20 alignment=right>This document is signed with the QR-Code shown on the right. Validate it using a Scanner App."""
+    qr_info = """<para rightIndent=10 leftIndent=20 alignment=right>This document is signed with the QR code shown on the right. Validate it using a Barcode Scanner."""
     par = Paragraph(qr_info, style)
     im = Image("qrcode.png", 101, 101)
     pandi = ParagraphAndImage(par, im, xpad=3, ypad=30, side='right')
@@ -110,7 +111,7 @@ def gpg_sign(message):
     
     
     
-    signed_message = gpg.sign(message_stripped, keyid=keyid, passphrase=passphrase, clearsign=True)
+    signed_message = gpg.sign(message_stripped, keyid=keyid, passphrase=passphrase, clearsign=clearsign)
     return str(signed_message)
         
 
