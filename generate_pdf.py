@@ -3,8 +3,10 @@
 Generate QR Code signed PDF with private GPG key
 
 TODO:
-- First line of message missing in signature!
-
+    - first line missing in sign, see workaround
+    - strip tags like <b>
+    - restructure code
+    
 @author: Dominik Schürmann
 """
 
@@ -31,21 +33,9 @@ keyid = None # define keyid, run program to see valid key ids, None means using 
 
 # document
 title = "QR Code Signed Document"
-message = """Lorem ipsum dolor sit amet, consetetur sadipscing elitr,
-sed diam nonumy eirmod tempor invidunt ut labore et dolore magna
-aliquyam erat, sed diam voluptua. At vero eos et accusam et justo
-duo dolores et ea rebum. Stet clita kasd gubergren, no sea
-takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum
-dolor sit amet, consetetur sadipscing elitr, sed diam nonumy
-eirmod tempor invidunt ut labore et dolore magna aliquyam erat,
-sed diam voluptua. At vero eos et accusam et justo duo dolores
-et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus
-est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet,
-consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt
-ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero
-eos et accusam et justo duo dolores et ea rebum. Stet clita kasd
-gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet."""
 
+with file('message.txt', 'r') as f:
+    message = f.read()
 
 
 def myFirstPage(canvas, doc):
@@ -105,7 +95,7 @@ def gpg_sign(message):
         gpg = gnupg.GPG(gnupghome=gpgdir, gpgbinary='gpg', verbose=verbose, use_agent=use_agent)
         print "Successfully set of GPG directory: %s" % gpgdir
     
-    private_keys = gpg.list_keys(True) # True => private keys
+    private_keys = gpg.list_keys(True) # private keys
     
     print("valid keys with key id and emails:")
     for key in private_keys:
@@ -113,14 +103,19 @@ def gpg_sign(message):
         print("key id: "+str(key['keyid']))
         for uid in key['uids']:
             print(uid)
+            
+    # remove newlines, only the actual content should be signed!
+    message_stripped = message.replace(os.linesep, "")
+    message_stripped = "\n" + message_stripped # workaround
     
-    signed_data = gpg.sign(message, keyid=keyid, passphrase=passphrase, clearsign=True)
-    return str(signed_data)
+    
+    
+    signed_message = gpg.sign(message_stripped, keyid=keyid, passphrase=passphrase, clearsign=True)
+    return str(signed_message)
         
 
 signed_message = gpg_sign(message)
 generate_pdf(message, signed_message)
 
-print("\n\n\n ")
-print(str(message))
+print("\n\n\nSigned Message:")
 print(str(signed_message))

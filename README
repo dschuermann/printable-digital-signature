@@ -1,3 +1,21 @@
+What is this?
+-----------------------------------------------------------
+This Python script generates a PDF file with an embedded QR code,
+based on a message. This QR code contains the message signed
+with your private gpg key. The purpose of this is to have a
+printed signed document.
+
+The idea is to build a Android application that verifies
+signatures on these printed documents by scanning the text on
+the document by for example OCR and verifies the text by checking
+the QR code and verify the included signature.
+
+Similar ideas (not open source):
+-----------------------------------------------------------
+http://www.secrypt.de/produkte/digiseal-2d-barcode
+
+
+
 Required Python Modules:
 -----------------------------------------------------------
 - python-reportlab (>= 2.5)
