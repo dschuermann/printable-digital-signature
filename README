@@ -43,11 +43,7 @@ http://pypi.python.org/pypi/python-gnupg
 
 Debian testing:
 -----------------------------------------------------------
-aptitude install python-reportlab python-qrencode gnupg
-
-Install python-gnupg:
-1. Download newest tar.gz from http://code.google.com/p/python-gnupg/downloads/list
-2. Install package following supplied README
+aptitude install python-reportlab python-qrencode gnupg python-gnupg
 
 
 License
